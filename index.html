@@ -1,1 +1,672 @@
-file:///Users/jaygoh/Downloads/index_6.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>AWP · June 2026 Leaderboard</title>
+<meta name="description" content="AIA AWP ORG — Atlas Wealth Planners Sales Leaderboard"/>
+<link rel="canonical" href="https://AtlasWealthPlanners.github.io/awp-leaderboard/"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#1a2a4a;
+  --navy-light:#243660;
+  --cream:#f0ebe0;
+  --cream-dark:#e0d8c8;
+  --gold:#c9a84c;
+  --gold-light:#e8c96a;
+  --black:#0e0e0e;
+  --off-white:#faf8f4;
+  --muted:#8a8070;
+  --red-aia:#d4001a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--cream);
+  color:var(--black);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── TOP BANNER ── */
+.top-band{
+  background:var(--navy);
+  padding:6px 0;
+  text-align:center;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:600;
+}
+
+/* ── HERO HEADER ── */
+.hero{
+  background:var(--navy);
+  padding:28px 20px 22px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-40px;right:-40px;
+  width:200px;height:200px;
+  border:40px solid rgba(201,168,76,0.08);
+  border-radius:50%;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:-60px;left:-20px;
+  width:160px;height:160px;
+  border:30px solid rgba(201,168,76,0.05);
+  border-radius:50%;
+}
+.hero-inner{max-width:540px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.awp-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:32px;letter-spacing:3px;color:#fff;line-height:1;
+}
+.atlas-tag{
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold);border:0.5px solid var(--gold);
+  padding:3px 8px;border-radius:2px;font-weight:600;
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:42px;letter-spacing:2px;
+  color:var(--cream);line-height:0.95;margin-bottom:6px;
+}
+.hero-title span{color:var(--gold)}
+.hero-sub{
+  font-size:11px;color:rgba(240,235,224,0.5);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;
+}
+.hero-metrics{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:rgba(255,255,255,0.1);border-radius:8px;overflow:hidden;
+}
+.hm{
+  background:rgba(255,255,255,0.05);
+  padding:12px 8px;text-align:center;
+}
+.hm-val{font-size:16px;font-weight:700;color:var(--gold);line-height:1}
+.hm-lbl{font-size:9px;color:rgba(240,235,224,0.45);letter-spacing:0.8px;text-transform:uppercase;margin-top:3px}
+
+/* ── GRIT STRIP ── */
+.grit-strip{
+  background:var(--gold);
+  padding:10px 20px;
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  flex-wrap:wrap;
+}
+.grit-word{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--navy);
+  display:flex;align-items:center;gap:5px;
+}
+.grit-word .dot{width:4px;height:4px;background:var(--navy);border-radius:50%;opacity:0.4}
+
+/* ── CONTROLS ── */
+.ctrl-area{
+  max-width:540px;margin:0 auto;
+  padding:14px 16px 8px;
+}
+.ctrl-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ctrl-btn{
+  background:#fff;border:0.5px solid var(--cream-dark);
+  border-radius:6px;padding:6px 12px;font-size:12px;
+  font-weight:500;cursor:pointer;color:var(--muted);
+  font-family:'Inter',sans-serif;transition:all 0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.ctrl-btn:active,.ctrl-btn.active{
+  background:var(--navy);color:#fff;border-color:var(--navy);
+}
+.ctrl-btn.top-btn.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+
+/* ── TABLE HEADER ── */
+.tbl-hdr{
+  max-width:540px;margin:0 auto;
+  display:grid;grid-template-columns:36px 26px 1fr 72px 72px 44px;
+  gap:4px;padding:4px 16px 6px;
+}
+.th{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;text-align:right;font-weight:600}
+.th:nth-child(3){text-align:left}
+
+/* ── ROWS ── */
+.board{max-width:540px;margin:0 auto;padding:0 12px;display:flex;flex-direction:column;gap:4px}
+.row{
+  display:grid;
+  grid-template-columns:36px 26px 1fr 72px 72px 44px;
+  gap:4px;align-items:center;
+  background:#fff;
+  border:0.5px solid rgba(0,0,0,0.06);
+  border-radius:10px;
+  padding:10px 12px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:background 0.12s;
+  position:relative;
+}
+.row:active{background:#f8f5f0}
+.row.gold-row{background:#fffbf2;border-color:rgba(201,168,76,0.3);border-left:3px solid var(--gold)}
+.row.silver-row{background:#f9f9f7;border-color:rgba(160,158,152,0.3);border-left:3px solid #b0aca4}
+.row.bronze-row{background:#fff8f4;border-color:rgba(180,130,80,0.3);border-left:3px solid #c87d42}
+.row.open{border-radius:10px 10px 0 0;margin-bottom:0}
+
+.rn{font-size:12px;font-weight:700;color:#ccc;text-align:center}
+.rn.hi{color:var(--navy)}
+.med{font-size:18px;text-align:center;line-height:1}
+.agent-cell{}
+.aname{font-size:12px;font-weight:600;color:var(--black);line-height:1.2}
+.spark{display:flex;align-items:flex-end;gap:1.5px;height:14px;margin-top:3px}
+.sb{border-radius:1px 1px 0 0;flex:1;min-width:5px;transition:height 0.5s ease}
+.mtd-cell{text-align:right}
+.fyc-val{font-size:12px;font-weight:600;color:var(--black)}
+.fyc-val.neg{color:#c0392b}
+.fyc-sub{font-size:9px;color:var(--muted);margin-top:1px}
+.ytd-cell{text-align:right}
+.cc-pill{
+  font-size:10px;font-weight:700;
+  background:var(--cream);border-radius:20px;
+  padding:2px 6px;text-align:center;color:var(--navy);
+}
+
+/* ── EXPAND ── */
+.expand-panel{
+  max-width:540px;margin:0 auto;
+  background:#fff;
+  border:0.5px solid rgba(0,0,0,0.06);
+  border-top:none;
+  border-radius:0 0 10px 10px;
+  padding:10px 12px 12px;
+  margin-bottom:4px;
+  display:none;
+}
+.expand-panel.show{display:block}
+.month-row{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:8px}
+.mo-item{text-align:center}
+.mo-lbl{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px}
+.mo-fyc{font-size:10px;font-weight:600;color:var(--black)}
+.mo-fyc.neg{color:#c0392b}
+.mo-cc{font-size:9px;color:var(--muted)}
+.expand-divider{height:0.5px;background:var(--cream-dark);margin:8px 0}
+
+/* ── SLOGAN FOOTER ── */
+.slogan-section{
+  max-width:540px;margin:20px auto 0;padding:0 16px 8px;
+}
+.slogan-inner{
+  background:var(--navy);border-radius:12px;
+  padding:18px 20px;text-align:center;
+}
+.slogan-text{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:3px;
+  color:var(--gold);margin-bottom:4px;
+}
+.mission-text{
+  font-size:10px;color:rgba(240,235,224,0.4);
+  letter-spacing:1px;text-transform:uppercase;
+  line-height:1.6;
+}
+
+
+
+/* ── SCREENSHOT TIP ── */
+.tip{
+  max-width:540px;margin:0 auto 24px;padding:0 12px;
+  font-size:10px;color:var(--muted);text-align:center;
+  line-height:1.6;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.row{animation:fadeUp 0.25s ease both}
+
+/* ── AGENT MODAL ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(10,18,35,0.75);
+  z-index:100;overflow-y:auto;
+  padding:20px 12px;
+}
+.modal-overlay.show{display:flex;align-items:flex-start;justify-content:center}
+.modal-box{
+  background:#fff;border-radius:16px;
+  width:100%;max-width:480px;
+  overflow:hidden;position:relative;
+  margin:auto;
+}
+.modal-hero{
+  background:var(--navy);
+  padding:20px 20px 16px;
+}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  background:rgba(255,255,255,0.12);
+  border:none;border-radius:50%;
+  width:30px;height:30px;
+  color:#fff;font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  line-height:1;
+}
+.modal-close:active{background:rgba(255,255,255,0.25)}
+.modal-rank{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:6px;font-weight:600;
+}
+.modal-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px;letter-spacing:1px;
+  color:#fff;line-height:1;margin-bottom:12px;
+}
+.modal-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,255,255,0.1);
+  border-radius:8px;overflow:hidden;
+}
+.ms{
+  background:rgba(255,255,255,0.05);
+  padding:10px 8px;text-align:center;
+}
+.ms-val{font-size:15px;font-weight:700;color:var(--gold);line-height:1}
+.ms-lbl{font-size:9px;color:rgba(240,235,224,0.4);letter-spacing:0.8px;text-transform:uppercase;margin-top:3px}
+.modal-body{padding:16px}
+.modal-section-title{
+  font-size:10px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:10px;
+}
+.modal-month-grid{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  gap:4px;margin-bottom:16px;
+}
+.mm-item{
+  background:var(--cream);border-radius:6px;
+  padding:6px 4px;text-align:center;
+}
+.mm-mo{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px}
+.mm-fyc{font-size:10px;font-weight:700;color:var(--navy);line-height:1.2}
+.mm-fyc.neg{color:#c0392b}
+.mm-cc{font-size:9px;color:var(--muted);margin-top:2px}
+.chart-wrap{
+  position:relative;height:160px;margin-bottom:4px;
+}
+.modal-grit{
+  background:var(--navy);border-radius:8px;
+  padding:10px 14px;text-align:center;margin-top:12px;
+}
+.modal-grit-text{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);font-weight:700;
+}
+.modal-vs{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;
+}
+.mv-card{
+  background:var(--cream);border-radius:8px;padding:10px;text-align:center;
+}
+.mv-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.mv-val{font-size:14px;font-weight:700;color:var(--navy)}
+.mv-avg{font-size:9px;color:var(--muted);margin-top:2px}
+.mv-bar-wrap{height:4px;background:#e0ddd6;border-radius:2px;margin-top:6px}
+.mv-bar{height:4px;border-radius:2px;background:var(--gold);transition:width 0.6s ease}
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+
+<div class="top-band">Atlas Wealth Planners · AIA · AWP ORG · where people matter</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="awp-logo">AWP</div>
+      <div class="atlas-tag">Atlas Wealth Planners</div>
+    </div>
+    <div class="hero-title">June <span>2026</span><br>Leaderboard</div>
+    <div class="hero-sub">AIA · AWP ORG · Data as of 20 Jun 2026</div>
+    <div class="hero-metrics" id="heroMetrics">
+      <div class="hm"><div class="hm-val">—</div><div class="hm-lbl">Team YTD FYC</div></div>
+      <div class="hm"><div class="hm-val">—</div><div class="hm-lbl">Team MTD FYC</div></div>
+      <div class="hm"><div class="hm-val">—</div><div class="hm-lbl">Total Cases</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="grit-strip">
+  <div class="grit-word"><span class="dot"></span>Gratitude<span class="dot"></span></div>
+  <div class="grit-word"><span class="dot"></span>Respect<span class="dot"></span></div>
+  <div class="grit-word"><span class="dot"></span>Integrity<span class="dot"></span></div>
+  <div class="grit-word"><span class="dot"></span>Tenacity<span class="dot"></span></div>
+</div>
+
+<div class="ctrl-area">
+  <div class="ctrl-row">
+    <button class="ctrl-btn active" onclick="setSort('ytd',this)">YTD FYC</button>
+    <button class="ctrl-btn" onclick="setSort('mtd',this)">MTD FYC</button>
+    <button class="ctrl-btn" onclick="setSort('cc',this)">Cases</button>
+    <button class="ctrl-btn top-btn" id="topBtn" onclick="toggleTop(this)">Top 10</button>
+  </div>
+</div>
+
+<div class="tbl-hdr">
+  <div class="th"></div><div class="th"></div>
+  <div class="th" style="text-align:left">Agent</div>
+  <div class="th">MTD</div>
+  <div class="th">YTD FYC</div>
+  <div class="th">CC</div>
+</div>
+
+<div class="board" id="board"></div>
+
+<div class="slogan-section">
+  <div class="slogan-inner">
+    <div class="slogan-text">Where People Matter</div>
+    <div class="mission-text">Making financial planning accessible to everyone<br>Leading the new generation of financial advisors</div>
+  </div>
+</div>
+
+
+
+<script>
+const DATA=[{"name": "STELLA THET ELIANG", "jan_fyc": 9817.69, "feb_fyc": 9956.02, "mar_fyc": 10183.0, "apr_fyc": 20084.04, "may_fyc": 8686.24, "jun_fyc": 18129.0, "ytd_fyc": 76855.99, "mtd_fyc": 18129.0, "jan_cc": 11, "feb_cc": 16, "mar_cc": 26, "apr_cc": 27, "may_cc": 20, "jun_cc": 9, "ytd_cc": 109, "mtd_cc": 9}, {"name": "CHENG CHI WAN", "jan_fyc": 3071.18, "feb_fyc": 6730.1, "mar_fyc": 10555.92, "apr_fyc": 10629.39, "may_fyc": 4857.5, "jun_fyc": 3792.98, "ytd_fyc": 39637.07, "mtd_fyc": 3792.98, "jan_cc": 6, "feb_cc": 3.5, "mar_cc": 10, "apr_cc": 10.5, "may_cc": 6, "jun_cc": 1, "ytd_cc": 37, "mtd_cc": 1}, {"name": "CHAN TENG HONG", "jan_fyc": 173.4, "feb_fyc": 18032.79, "mar_fyc": 1562.02, "apr_fyc": 255.83, "may_fyc": 17208.02, "jun_fyc": 145.45, "ytd_fyc": 37377.51, "mtd_fyc": 145.45, "jan_cc": 0, "feb_cc": 4, "mar_cc": 6, "apr_cc": 2, "may_cc": 6.5, "jun_cc": 0, "ytd_cc": 18.5, "mtd_cc": 0}, {"name": "ZHANG YICHAO", "jan_fyc": 4290.06, "feb_fyc": 6360.13, "mar_fyc": 3986.39, "apr_fyc": 5974.74, "may_fyc": 4901.91, "jun_fyc": 7774.21, "ytd_fyc": 33287.44, "mtd_fyc": 7774.21, "jan_cc": 10, "feb_cc": 13, "mar_cc": 11.5, "apr_cc": 9, "may_cc": 15, "jun_cc": 10, "ytd_cc": 68.5, "mtd_cc": 10}, {"name": "SENG WEI XIANG ALASTAIR", "jan_fyc": 3308.89, "feb_fyc": 2583.96, "mar_fyc": 2821.02, "apr_fyc": 10379.79, "may_fyc": 4039.37, "jun_fyc": 5595.46, "ytd_fyc": 28728.49, "mtd_fyc": 5595.46, "jan_cc": 14, "feb_cc": 13, "mar_cc": 15, "apr_cc": 18, "may_cc": 9, "jun_cc": 8, "ytd_cc": 77, "mtd_cc": 8}, {"name": "YAW WEI YEE EDISON", "jan_fyc": 417.15, "feb_fyc": 248.31, "mar_fyc": 1109.94, "apr_fyc": 8691.12, "may_fyc": 9718.49, "jun_fyc": 5960.69, "ytd_fyc": 26145.7, "mtd_fyc": 5960.69, "jan_cc": 4, "feb_cc": 3.5, "mar_cc": 2.5, "apr_cc": 5, "may_cc": 5.5, "jun_cc": 6, "ytd_cc": 26.5, "mtd_cc": 6}, {"name": "LIM HUI MEI JASMINE", "jan_fyc": 2144.32, "feb_fyc": 1240.17, "mar_fyc": 5427.2, "apr_fyc": 9563.69, "may_fyc": 5912.36, "jun_fyc": 1485.5, "ytd_fyc": 25773.24, "mtd_fyc": 1485.5, "jan_cc": 4, "feb_cc": 7.5, "mar_cc": 5, "apr_cc": 9.5, "may_cc": 9, "jun_cc": 5, "ytd_cc": 40, "mtd_cc": 5}, {"name": "NG TIAN LIN ASHLEY", "jan_fyc": 617.71, "feb_fyc": 10701.63, "mar_fyc": 5839.46, "apr_fyc": 37.79, "may_fyc": 5.37, "jun_fyc": 5700.0, "ytd_fyc": 22901.96, "mtd_fyc": 5700.0, "jan_cc": 3, "feb_cc": 5, "mar_cc": 5, "apr_cc": 1, "may_cc": 0, "jun_cc": 1, "ytd_cc": 15, "mtd_cc": 1}, {"name": "TAN TECK LEE JACKIE", "jan_fyc": 145.34, "feb_fyc": 6172.22, "mar_fyc": 6302.71, "apr_fyc": -1106.22, "may_fyc": 6797.26, "jun_fyc": 2894.28, "ytd_fyc": 21205.59, "mtd_fyc": 2894.28, "jan_cc": 6, "feb_cc": 2, "mar_cc": 4, "apr_cc": 1, "may_cc": 4, "jun_cc": 1, "ytd_cc": 18, "mtd_cc": 1}, {"name": "GOH SHU YI", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 12655.1, "apr_fyc": 6436.14, "may_fyc": 1965.31, "jun_fyc": 31.98, "ytd_fyc": 21088.53, "mtd_fyc": 31.98, "jan_cc": 0, "feb_cc": 0, "mar_cc": 15, "apr_cc": 7, "may_cc": 4.5, "jun_cc": 0, "ytd_cc": 26.5, "mtd_cc": 0}, {"name": "JAI PRAKASH GAMERAN", "jan_fyc": 654.13, "feb_fyc": 2232.11, "mar_fyc": 4019.98, "apr_fyc": 2655.16, "may_fyc": 5736.97, "jun_fyc": 5394.27, "ytd_fyc": 20692.62, "mtd_fyc": 5394.27, "jan_cc": 3, "feb_cc": 4, "mar_cc": 17, "apr_cc": 7, "may_cc": 6, "jun_cc": 9, "ytd_cc": 46, "mtd_cc": 9}, {"name": "LAU BAO YING ALVIN", "jan_fyc": 11759.58, "feb_fyc": 1235.47, "mar_fyc": 2382.05, "apr_fyc": 1172.2, "may_fyc": 461.89, "jun_fyc": 1228.23, "ytd_fyc": 18239.42, "mtd_fyc": 1228.23, "jan_cc": 4, "feb_cc": 0.5, "mar_cc": 3.5, "apr_cc": 7, "may_cc": 0, "jun_cc": 2, "ytd_cc": 17, "mtd_cc": 2}, {"name": "CHESTER NEO CHIN HWEE", "jan_fyc": 599.96, "feb_fyc": 3401.5, "mar_fyc": 2861.97, "apr_fyc": 6518.07, "may_fyc": 2360.11, "jun_fyc": 787.26, "ytd_fyc": 16528.87, "mtd_fyc": 787.26, "jan_cc": 1, "feb_cc": 7.5, "mar_cc": 9, "apr_cc": 5, "may_cc": 1, "jun_cc": 4, "ytd_cc": 27.5, "mtd_cc": 4}, {"name": "NUR AFIFAH BINTE NASIR", "jan_fyc": 3506.55, "feb_fyc": 1781.7, "mar_fyc": 1536.76, "apr_fyc": 1804.44, "may_fyc": 1797.74, "jun_fyc": 2374.48, "ytd_fyc": 12801.67, "mtd_fyc": 2374.48, "jan_cc": 4, "feb_cc": 7, "mar_cc": 12, "apr_cc": 13, "may_cc": 12, "jun_cc": 10, "ytd_cc": 58, "mtd_cc": 10}, {"name": "NG SI XIONG IVAN", "jan_fyc": 350.8, "feb_fyc": 527.8, "mar_fyc": 3370.46, "apr_fyc": 191.1, "may_fyc": 5376.05, "jun_fyc": 1096.96, "ytd_fyc": 10913.17, "mtd_fyc": 1096.96, "jan_cc": 0, "feb_cc": 3, "mar_cc": 5.5, "apr_cc": 1, "may_cc": 3, "jun_cc": 1, "ytd_cc": 13.5, "mtd_cc": 1}, {"name": "ADRIAN SOH WEI REN", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 154.08, "apr_fyc": 6676.74, "may_fyc": 3004.08, "jun_fyc": 587.73, "ytd_fyc": 10422.63, "mtd_fyc": 587.73, "jan_cc": 0, "feb_cc": 0, "mar_cc": 2, "apr_cc": 2, "may_cc": 2, "jun_cc": 1, "ytd_cc": 7, "mtd_cc": 1}, {"name": "HOON WEE HOW", "jan_fyc": 8.91, "feb_fyc": 352.44, "mar_fyc": 7138.59, "apr_fyc": 596.58, "may_fyc": 80.34, "jun_fyc": 555.98, "ytd_fyc": 8732.84, "mtd_fyc": 555.98, "jan_cc": 0, "feb_cc": 1, "mar_cc": 1, "apr_cc": 3, "may_cc": 3, "jun_cc": 2, "ytd_cc": 10, "mtd_cc": 2}, {"name": "POH JIAMING JARYL", "jan_fyc": 2834.57, "feb_fyc": 621.18, "mar_fyc": 1332.8, "apr_fyc": 524.7, "may_fyc": 1928.68, "jun_fyc": 280.0, "ytd_fyc": 7521.93, "mtd_fyc": 280.0, "jan_cc": 4, "feb_cc": 3, "mar_cc": 5, "apr_cc": 1, "may_cc": 2, "jun_cc": 0, "ytd_cc": 15, "mtd_cc": 0}, {"name": "NUR IZZA FAZIRA PUTRI NORJAI", "jan_fyc": 1834.38, "feb_fyc": 137.79, "mar_fyc": 4455.53, "apr_fyc": 180.21, "may_fyc": 167.08, "jun_fyc": 67.45, "ytd_fyc": 6842.44, "mtd_fyc": 67.45, "jan_cc": 3, "feb_cc": 5, "mar_cc": 6, "apr_cc": 5, "may_cc": 1, "jun_cc": 0, "ytd_cc": 20, "mtd_cc": 0}, {"name": "HAN WEN TIAN SAMANTHA", "jan_fyc": 306.04, "feb_fyc": 4560.97, "mar_fyc": 997.84, "apr_fyc": 127.1, "may_fyc": 86.86, "jun_fyc": 70.53, "ytd_fyc": 6149.34, "mtd_fyc": 70.53, "jan_cc": 1, "feb_cc": 1, "mar_cc": 7, "apr_cc": 0, "may_cc": 0.5, "jun_cc": 0, "ytd_cc": 9.5, "mtd_cc": 0}, {"name": "TSAN SHENG BAO ROBIN", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 0, "apr_fyc": 0, "may_fyc": 6061.68, "jun_fyc": 0, "ytd_fyc": 6061.68, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 0, "mar_cc": 0, "apr_cc": 0, "may_cc": 2, "jun_cc": 0, "ytd_cc": 2, "mtd_cc": 0}, {"name": "CHEN SHIXIN", "jan_fyc": 930.99, "feb_fyc": 1192.81, "mar_fyc": 1165.52, "apr_fyc": 1428.05, "may_fyc": 971.62, "jun_fyc": 327.94, "ytd_fyc": 6016.93, "mtd_fyc": 327.94, "jan_cc": 0, "feb_cc": 4, "mar_cc": 6, "apr_cc": 7, "may_cc": 1, "jun_cc": 0, "ytd_cc": 18, "mtd_cc": 0}, {"name": "CHIA JOVIN", "jan_fyc": 270.94, "feb_fyc": 270.94, "mar_fyc": 2467.22, "apr_fyc": 2309.88, "may_fyc": 1382.04, "jun_fyc": -705.89, "ytd_fyc": 5995.13, "mtd_fyc": -705.89, "jan_cc": 0, "feb_cc": 0, "mar_cc": 9, "apr_cc": 4, "may_cc": 2, "jun_cc": 0, "ytd_cc": 15, "mtd_cc": 0}, {"name": "CHIA WEN JIE", "jan_fyc": 686.5, "feb_fyc": 210.83, "mar_fyc": 658.83, "apr_fyc": 381.64, "may_fyc": 1675.32, "jun_fyc": 212.33, "ytd_fyc": 3825.45, "mtd_fyc": 212.33, "jan_cc": 4, "feb_cc": 0, "mar_cc": 2, "apr_cc": 2, "may_cc": 5, "jun_cc": 0, "ytd_cc": 13, "mtd_cc": 0}, {"name": "SEAN KOH SHAO WEI", "jan_fyc": 10.96, "feb_fyc": 46.32, "mar_fyc": 0, "apr_fyc": 938.88, "may_fyc": 274.84, "jun_fyc": 2098.81, "ytd_fyc": 3369.81, "mtd_fyc": 2098.81, "jan_cc": 3, "feb_cc": 5, "mar_cc": 0, "apr_cc": 2, "may_cc": 1, "jun_cc": 1, "ytd_cc": 12, "mtd_cc": 1}, {"name": "YEO WEN QING", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 0, "apr_fyc": 3012.92, "may_fyc": 70.0, "jun_fyc": 0, "ytd_fyc": 3082.92, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 0, "mar_cc": 0, "apr_cc": 6, "may_cc": 0, "jun_cc": 0, "ytd_cc": 6, "mtd_cc": 0}, {"name": "TEO AI QI", "jan_fyc": 148.57, "feb_fyc": 531.35, "mar_fyc": 476.35, "apr_fyc": 2034.43, "may_fyc": -259.58, "jun_fyc": 91.42, "ytd_fyc": 3022.54, "mtd_fyc": 91.42, "jan_cc": 0, "feb_cc": 3, "mar_cc": 4, "apr_cc": 9, "may_cc": -1, "jun_cc": 1, "ytd_cc": 16, "mtd_cc": 1}, {"name": "ASHLEY CHOW CUI XUAN", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 0, "apr_fyc": 2450, "may_fyc": 148.35, "jun_fyc": 0, "ytd_fyc": 2598.35, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 0, "mar_cc": 0, "apr_cc": 2, "may_cc": 1, "jun_cc": 0, "ytd_cc": 3, "mtd_cc": 0}, {"name": "ANFAL ADIB BINTE ABDUL MAJID", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 2088.68, "apr_fyc": 420.95, "may_fyc": 0, "jun_fyc": 0, "ytd_fyc": 2509.63, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 0, "mar_cc": 2, "apr_cc": 1, "may_cc": 0, "jun_cc": 0, "ytd_cc": 3, "mtd_cc": 0}, {"name": "HO JIA XIAN GAVIN", "jan_fyc": 947.23, "feb_fyc": 57.26, "mar_fyc": 858.58, "apr_fyc": 114.75, "may_fyc": 87.76, "jun_fyc": 104.97, "ytd_fyc": 2170.55, "mtd_fyc": 104.97, "jan_cc": 3, "feb_cc": 0, "mar_cc": 1, "apr_cc": 0, "may_cc": 0, "jun_cc": 2, "ytd_cc": 6, "mtd_cc": 2}, {"name": "ANG ZHI YONG", "jan_fyc": 238.72, "feb_fyc": 604.82, "mar_fyc": 1363.76, "apr_fyc": 479.71, "may_fyc": -2023.89, "jun_fyc": 98.56, "ytd_fyc": 761.68, "mtd_fyc": 98.56, "jan_cc": 0, "feb_cc": 5, "mar_cc": 6.5, "apr_cc": 1, "may_cc": -2.5, "jun_cc": 1, "ytd_cc": 11, "mtd_cc": 1}, {"name": "TIARA AMBERLYNN FULLMER", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 0, "apr_fyc": 597.3, "may_fyc": 0, "jun_fyc": 0, "ytd_fyc": 597.3, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 0, "mar_cc": 0, "apr_cc": 3, "may_cc": 0, "jun_cc": 0, "ytd_cc": 3, "mtd_cc": 0}, {"name": "CHIN SHANG HAO BRENDAN", "jan_fyc": 931.57, "feb_fyc": 320.43, "mar_fyc": 382.11, "apr_fyc": 418.85, "may_fyc": -1700.22, "jun_fyc": 233.83, "ytd_fyc": 586.57, "mtd_fyc": 233.83, "jan_cc": 3, "feb_cc": 0, "mar_cc": 1, "apr_cc": 1, "may_cc": 0.5, "jun_cc": 0, "ytd_cc": 5.5, "mtd_cc": 0}, {"name": "LIM DE EN JOVIAN", "jan_fyc": 0, "feb_fyc": 434.04, "mar_fyc": 0, "apr_fyc": 0, "may_fyc": 90.66, "jun_fyc": 0, "ytd_fyc": 524.7, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 2, "mar_cc": 0, "apr_cc": 0, "may_cc": 1, "jun_cc": 0, "ytd_cc": 3, "mtd_cc": 0}, {"name": "LIM JING XUAN", "jan_fyc": 170.67, "feb_fyc": 46.87, "mar_fyc": 49.33, "apr_fyc": -147.66, "may_fyc": 46.65, "jun_fyc": 8.06, "ytd_fyc": 173.92, "mtd_fyc": 8.06, "jan_cc": 4, "feb_cc": 3.5, "mar_cc": 2.5, "apr_cc": 0, "may_cc": 0, "jun_cc": 0, "ytd_cc": 10, "mtd_cc": 0}, {"name": "LOH KE YUN JOLENE", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 0, "apr_fyc": 0, "may_fyc": 0, "jun_fyc": 0, "ytd_fyc": 0, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 0, "mar_cc": 0, "apr_cc": 0, "may_cc": 0, "jun_cc": 0, "ytd_cc": 0, "mtd_cc": 0}, {"name": "CRISTAL LIN SHANSHAN", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 0, "apr_fyc": 0, "may_fyc": 0, "jun_fyc": 0, "ytd_fyc": 0, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 0, "mar_cc": 0, "apr_cc": 0, "may_cc": 0, "jun_cc": 0, "ytd_cc": 0, "mtd_cc": 0}, {"name": "HENG YEE CHONG FABIAN", "jan_fyc": 0, "feb_fyc": 0, "mar_fyc": 0, "apr_fyc": 0, "may_fyc": 0, "jun_fyc": 0, "ytd_fyc": 0, "mtd_fyc": 0, "jan_cc": 0, "feb_cc": 0, "mar_cc": 0, "apr_cc": 0, "may_cc": 0, "jun_cc": 0, "ytd_cc": 0, "mtd_cc": 0}];
+
+const MOS=['jan','feb','mar','apr','may','jun'];
+const MLBL=['Jan','Feb','Mar','Apr','May','Jun'];
+const MEDALS=['🥇','🥈','🥉'];
+
+let sortKey='ytd', showTop=false, openName=null;
+
+function fmts(n){
+  if(n===0) return '—';
+  const abs=Math.abs(n);
+  const s=abs>=1000?'$'+(abs/1000).toFixed(1)+'k':'$'+abs.toFixed(0);
+  return n<0?'-'+s:s;
+}
+function fmtFull(n){
+  if(n===0) return '—';
+  const abs=Math.abs(n);
+  const s='$'+abs.toLocaleString('en-SG',{minimumFractionDigits:2,maximumFractionDigits:2});
+  return n<0?'-'+s:s;
+}
+function fmtCC(n){return n===0?'—':(n%1===0?String(n):n.toFixed(1))}
+
+function sparkHTML(ag){
+  const vals=MOS.map(m=>ag[m+'_fyc']);
+  const maxV=Math.max(...vals.map(v=>Math.abs(v)),1);
+  return vals.map(v=>{
+    const pct=Math.max(Math.abs(v)/maxV*100,6);
+    const col=v<0?'#c0392b':'#1a2a4a';
+    return `<div class="sb" style="height:${pct}%;background:${col}"></div>`;
+  }).join('');
+}
+
+function monthHTML(ag){
+  return MOS.map((m,i)=>{
+    const f=ag[m+'_fyc'], c=ag[m+'_cc'];
+    return `<div class="mo-item">
+      <div class="mo-lbl">${MLBL[i]}</div>
+      <div class="mo-fyc${f<0?' neg':''}">${f===0?'—':fmts(f)}</div>
+      <div class="mo-cc">${c>0?c+'c':'—'}</div>
+    </div>`;
+  }).join('');
+}
+
+function getSortVal(ag){
+  if(sortKey==='ytd') return ag.ytd_fyc;
+  if(sortKey==='mtd') return ag.mtd_fyc;
+  return ag.ytd_cc;
+}
+
+function setSort(k,btn){
+  sortKey=k;
+  document.querySelectorAll('.ctrl-btn:not(.top-btn)').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function toggleTop(btn){
+  showTop=!showTop;
+  btn.classList.toggle('active',showTop);
+  btn.textContent=showTop?'All agents':'Top 10';
+  render();
+}
+function toggleRow(name){
+  // find agent
+  const ag = DATA.find(a=>a.name===name);
+  if(!ag) return;
+  const sorted=[...DATA].sort((a,b)=>getSortVal(b)-getSortVal(a));
+  const rank = sorted.findIndex(a=>a.name===name)+1;
+  openModal(ag, rank);
+}
+
+let agentChartInstance = null;
+
+function openModal(ag, rank){
+  // Header
+  document.getElementById('modalRank').textContent = 'Rank #'+rank+' · YTD FYC';
+  document.getElementById('modalName').textContent = ag.name;
+  document.getElementById('modalYTD').textContent = fmts(ag.ytd_fyc);
+  document.getElementById('modalMTD').textContent = fmts(ag.mtd_fyc);
+  document.getElementById('modalCC').textContent = fmtCC(ag.ytd_cc);
+
+  // vs team average
+  const activeAgents = DATA.filter(a=>a.ytd_fyc>0);
+  const avgYTD = activeAgents.reduce((s,a)=>s+a.ytd_fyc,0)/activeAgents.length;
+  const avgCC = activeAgents.reduce((s,a)=>s+a.ytd_cc,0)/activeAgents.length;
+  const maxYTD = Math.max(...DATA.map(a=>a.ytd_fyc));
+  const maxCC = Math.max(...DATA.map(a=>a.ytd_cc));
+
+  document.getElementById('vsYTD').textContent = fmts(ag.ytd_fyc);
+  document.getElementById('vsYTDavg').textContent = 'Team avg '+fmts(avgYTD);
+  document.getElementById('vsYTDbar').style.width = Math.min(ag.ytd_fyc/maxYTD*100,100)+'%';
+  document.getElementById('vsYTDbar').style.background = ag.ytd_fyc >= avgYTD ? '#1d9e75' : '#c9a84c';
+
+  document.getElementById('vsCC').textContent = fmtCC(ag.ytd_cc);
+  document.getElementById('vsCCavg').textContent = 'Team avg '+fmtCC(avgCC);
+  document.getElementById('vsCCbar').style.width = Math.min(ag.ytd_cc/maxCC*100,100)+'%';
+  document.getElementById('vsCCbar').style.background = ag.ytd_cc >= avgCC ? '#1d9e75' : '#c9a84c';
+
+  // Monthly grid
+  const months = ['jan','feb','mar','apr','may','jun'];
+  const mlbls = ['Jan','Feb','Mar','Apr','May','Jun'];
+  let monthHTML = '';
+  months.forEach((m,i)=>{
+    const f=ag[m+'_fyc'], c=ag[m+'_cc'];
+    monthHTML += '<div class="mm-item">'
+      +'<div class="mm-mo">'+mlbls[i]+'</div>'
+      +'<div class="mm-fyc'+(f<0?' neg':'')+'">'+( f===0?'—':fmts(f) )+'</div>'
+      +'<div class="mm-cc">'+(c>0?c+'cc':'—')+'</div>'
+      +'</div>';
+  });
+  document.getElementById('modalMonths').innerHTML = monthHTML;
+
+  // Chart
+  const fycs = months.map(m=>ag[m+'_fyc']);
+  const ccs = months.map(m=>ag[m+'_cc']);
+  if(agentChartInstance){ agentChartInstance.destroy(); agentChartInstance=null; }
+  const ctx = document.getElementById('agentChart').getContext('2d');
+  agentChartInstance = new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels: mlbls,
+      datasets:[
+        {
+          label:'FYC ($)',
+          data: fycs,
+          backgroundColor: fycs.map(v=>v<0?'rgba(192,57,43,0.7)':'rgba(26,42,74,0.8)'),
+          borderRadius:4,
+          yAxisID:'y'
+        },
+        {
+          label:'Cases',
+          data: ccs,
+          type:'line',
+          borderColor:'#c9a84c',
+          backgroundColor:'rgba(201,168,76,0.1)',
+          borderWidth:2,
+          pointBackgroundColor:'#c9a84c',
+          pointRadius:4,
+          tension:0.3,
+          yAxisID:'y1'
+        }
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false}
+      },
+      scales:{
+        y:{
+          position:'left',
+          ticks:{
+            font:{size:9},
+            callback:v=>v>=1000?'$'+(v/1000).toFixed(0)+'k':'$'+v
+          },
+          grid:{color:'rgba(0,0,0,0.04)'}
+        },
+        y1:{
+          position:'right',
+          ticks:{font:{size:9}},
+          grid:{display:false}
+        },
+        x:{ticks:{font:{size:9}}}
+      }
+    }
+  });
+
+  // Show modal
+  document.getElementById('agentModal').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('agentModal').classList.remove('show');
+  document.body.style.overflow='';
+  if(agentChartInstance){ agentChartInstance.destroy(); agentChartInstance=null; }
+}
+
+function closeModalOutside(e){
+  if(e.target===document.getElementById('agentModal')) closeModal();
+}
+
+function render(){
+  const sorted=[...DATA].sort((a,b)=>getSortVal(b)-getSortVal(a));
+  const display=showTop?sorted.slice(0,10):sorted;
+
+  const board=document.getElementById('board');
+  board.innerHTML='';
+
+  display.forEach((ag,i)=>{
+    const rank=i+1;
+    const rowCls=rank===1?' gold-row':rank===2?' silver-row':rank===3?' bronze-row':'';
+    const isOpen=openName===ag.name;
+
+    const row=document.createElement('div');
+    row.className='row'+rowCls+(isOpen?' open':'');
+    row.style.animationDelay=(i*0.025)+'s';
+    row.onclick=()=>toggleRow(ag.name); row.style.cursor='pointer';
+
+    const mtdCls=ag.mtd_fyc<0?' neg':'';
+    const ytdCls=ag.ytd_fyc<0?' neg':'';
+
+    row.innerHTML=`
+      <div class="rn${rank<=3?' hi':''}">${rank<=3?'':rank}</div>
+      <div class="med">${rank<=3?MEDALS[rank-1]:''}</div>
+      <div class="agent-cell">
+        <div class="aname">${ag.name}</div>
+        <div class="spark">${sparkHTML(ag)}</div>
+      </div>
+      <div class="mtd-cell">
+        <div class="fyc-val${mtdCls}">${fmts(ag.mtd_fyc)}</div>
+        <div class="fyc-sub">${ag.mtd_cc>0?ag.mtd_cc+'cc':''}</div>
+      </div>
+      <div class="ytd-cell">
+        <div class="fyc-val${ytdCls}">${fmts(ag.ytd_fyc)}</div>
+      </div>
+      <div class="cc-pill">${fmtCC(ag.ytd_cc)}</div>
+    `;
+    board.appendChild(row);
+
+    if(isOpen){
+      const panel=document.createElement('div');
+      panel.className='expand-panel show';
+      panel.innerHTML=`<div class="month-row">${monthHTML(ag)}</div>
+        <div class="expand-divider"></div>
+        <div style="font-size:10px;color:var(--muted)">YTD FYC: <strong style="color:var(--navy)">${fmtFull(ag.ytd_fyc)}</strong> &nbsp;·&nbsp; YTD CC: <strong style="color:var(--navy)">${fmtCC(ag.ytd_cc)}</strong></div>`;
+      board.appendChild(panel);
+    }
+  });
+
+  // Metrics
+  const totalYTD=DATA.reduce((s,r)=>s+r.ytd_fyc,0);
+  const totalMTD=DATA.reduce((s,r)=>s+r.mtd_fyc,0);
+  const totalCC=DATA.reduce((s,r)=>s+r.ytd_cc,0);
+  document.getElementById('heroMetrics').innerHTML=`
+    <div class="hm"><div class="hm-val">${fmts(totalYTD)}</div><div class="hm-lbl">Team YTD FYC</div></div>
+    <div class="hm"><div class="hm-val">${fmts(totalMTD)}</div><div class="hm-lbl">Team MTD FYC</div></div>
+    <div class="hm"><div class="hm-val">${totalCC}</div><div class="hm-lbl">Total Cases</div></div>
+  `;
+}
+
+
+render();
+</script>
+
+<!-- AGENT MODAL -->
+<div class="modal-overlay" id="agentModal" onclick="closeModalOutside(event)">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-hero">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-rank" id="modalRank">Rank #1</div>
+      <div class="modal-name" id="modalName">Agent Name</div>
+      <div class="modal-stats">
+        <div class="ms"><div class="ms-val" id="modalYTD">—</div><div class="ms-lbl">YTD FYC</div></div>
+        <div class="ms"><div class="ms-val" id="modalMTD">—</div><div class="ms-lbl">Jun FYC</div></div>
+        <div class="ms"><div class="ms-val" id="modalCC">—</div><div class="ms-lbl">YTD Cases</div></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">vs team average</div>
+      <div class="modal-vs">
+        <div class="mv-card">
+          <div class="mv-lbl">YTD FYC</div>
+          <div class="mv-val" id="vsYTD">—</div>
+          <div class="mv-avg" id="vsYTDavg">Team avg —</div>
+          <div class="mv-bar-wrap"><div class="mv-bar" id="vsYTDbar" style="width:0%"></div></div>
+        </div>
+        <div class="mv-card">
+          <div class="mv-lbl">Case Count</div>
+          <div class="mv-val" id="vsCC">—</div>
+          <div class="mv-avg" id="vsCCavg">Team avg —</div>
+          <div class="mv-bar-wrap"><div class="mv-bar" id="vsCCbar" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="modal-section-title">monthly breakdown</div>
+      <div class="modal-month-grid" id="modalMonths"></div>
+
+      <div class="modal-section-title">FYC trend</div>
+      <div class="chart-wrap">
+        <canvas id="agentChart" role="img" aria-label="Monthly FYC trend chart"></canvas>
+      </div>
+
+      <div class="modal-grit">
+        <div class="modal-grit-text">G · R · I · T &nbsp;|&nbsp; Where People Matter</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
