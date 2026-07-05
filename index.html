@@ -134,8 +134,8 @@ body{
 /* ── TABLE HEADER ── */
 .tbl-hdr{
   max-width:540px;margin:0 auto;
-  display:grid;grid-template-columns:28px 22px 1fr 72px 72px 44px 40px;
-  gap:4px;padding:4px 16px 6px;
+  display:grid;grid-template-columns:28px 22px minmax(0,1fr) 68px 68px 42px 36px;
+  gap:6px;padding:4px 16px 6px;
 }
 .th{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;text-align:right;font-weight:600}
 .th:nth-child(3){text-align:left}
@@ -144,8 +144,8 @@ body{
 .board{max-width:540px;margin:0 auto;padding:0 12px;display:flex;flex-direction:column;gap:4px}
 .row{
   display:grid;
-  grid-template-columns:28px 22px 1fr 72px 72px 44px 40px;
-  gap:4px;align-items:center;
+  grid-template-columns:28px 22px minmax(0,1fr) 68px 68px 42px 36px;
+  gap:6px;align-items:center;
   background:#fff;
   border:0.5px solid rgba(0,0,0,0.06);
   border-radius:10px;
@@ -166,7 +166,7 @@ body{
 .med{font-size:18px;text-align:center;line-height:1}
 .agent-cell{}
 .aname{font-size:12px;font-weight:600;color:var(--black);line-height:1.2}
-.spark{display:flex;align-items:flex-end;gap:1.5px;height:14px;margin-top:3px}
+.spark{display:flex;align-items:flex-end;gap:1.5px;height:10px;margin-top:2px}
 .sb{border-radius:1px 1px 0 0;flex:1;min-width:5px;transition:height 0.5s ease}
 .mtd-cell{text-align:right}
 .fyc-val{font-size:12px;font-weight:600;color:var(--black)}
@@ -374,14 +374,14 @@ body{
 }
 /* ── AGENT PHOTOS ── */
 .agent-photo{
-  width:36px;height:36px;min-width:36px;
+  width:30px;height:30px;min-width:30px;
   border-radius:50%;
   object-fit:cover;
   border:2px solid rgba(201,168,76,0.4);
   display:block;
 }
 .agent-photo-placeholder{
-  width:36px;height:36px;min-width:36px;
+  width:30px;height:30px;min-width:30px;
   border-radius:50%;
   background:var(--navy);
   border:2px solid rgba(201,168,76,0.3);
@@ -805,13 +805,13 @@ function render(){
     row.innerHTML=`
       <div class="rn${rank<=3?' hi':''}">${rank<=3?'':rank}</div>
       <div class="med">${rank<=3?MEDALS[rank-1]:''}</div>
-      <div class="agent-cell" style="display:flex;align-items:center;gap:8px;">
+      <div class="agent-cell" style="display:flex;align-items:flex-start;gap:8px;padding-top:2px;">
         ${PHOTOS[ag.name]
           ? `<img class="agent-photo" src="data:image/png;base64,${PHOTOS[ag.name]}" alt="${ag.name}">`
           : `<div class="agent-photo-placeholder">${ag.name.split(' ').slice(0,2).map(w=>w[0]).join('')}</div>`
         }
-        <div style="min-width:0">
-          <div class="aname" style="white-space:normal;overflow:visible;">${ag.name.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' ')}</div>
+        <div style="min-width:0;overflow:hidden">
+          <div class="aname" style="white-space:nowrap;font-size:11px;overflow:hidden;text-overflow:ellipsis;">${ag.name.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' ')}</div>
           <div class="spark">${sparkHTML(ag)}</div>
         </div>
       </div>
