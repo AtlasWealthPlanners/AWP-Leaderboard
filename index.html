@@ -805,13 +805,13 @@ function render(){
     row.innerHTML=`
       <div class="rn${rank<=3?' hi':''}">${rank<=3?'':rank}</div>
       <div class="med">${rank<=3?MEDALS[rank-1]:''}</div>
-      <div class="agent-cell" style="display:flex;align-items:center;gap:8px;min-width:0">
+      <div class="agent-cell" style="display:flex;align-items:center;gap:8px;">
         ${PHOTOS[ag.name]
           ? `<img class="agent-photo" src="data:image/png;base64,${PHOTOS[ag.name]}" alt="${ag.name}">`
           : `<div class="agent-photo-placeholder">${ag.name.split(' ').slice(0,2).map(w=>w[0]).join('')}</div>`
         }
         <div style="min-width:0">
-          <div class="aname" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ag.name.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' ')}</div>
+          <div class="aname" style="white-space:normal;overflow:visible;">${ag.name.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' ')}</div>
           <div class="spark">${sparkHTML(ag)}</div>
         </div>
       </div>
@@ -859,6 +859,13 @@ function rankMovesHTML(ag, currRank){
 }
 
 render();
+
+// Scroll HOF to end (latest month) on load
+window.addEventListener('load', function(){
+  const hof = document.querySelector('.hof-scroll');
+  if(hof) hof.scrollLeft = hof.scrollWidth;
+});
+
 </script>
 
 <!-- AGENT MODAL -->
