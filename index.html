@@ -938,284 +938,64 @@ function rankMovesHTML(ag, currRank){
 
 render();
 
-// ── RANK ANIMATION ON FIRST VISIT ─────────────────────────────────────
-function animateRankings(){
-  const rows = Array.from(document.querySelectorAll('.board .row'));
-  if(!rows.length) return;
 
-  // Build final positions
-  const finalPositions = rows.map(r => r.getBoundingClientRect());
-
-  // Scramble: sort by prev_rank from DATA
-  const board = document.getElementById('board');
-  const sorted = [...DATA].sort((a,b) => b.ytd_fyc - a.ytd_fyc);
-
-  // Step 1: show in previous rank order (mixed order)
-  const prevSorted = [...sorted].sort((a,b) => a.prev_rank - b.prev_rank);
-
-  // Re-render in previous order
-  board.innerHTML = '';
-  prevSorted.forEach((ag, i) => {
-    const curr = sorted.findIndex(x => x.name === ag.name) + 1;
-    const cls = curr===1?' gold-row':curr===2?' silver-row':curr===3?' bronze-row':'';
-    const row = document.createElement('div');
-    row.className = 'row' + cls;
-    row.style.opacity = '0';
-    row.innerHTML = buildRowHTML(ag, i+1); // show prev rank number initially
-    board.appendChild(row);
-  });
-
-  // Fade in staggered
-  const prevRows = Array.from(board.querySelectorAll('.row'));
-  prevRows.forEach((r, i) => {
-    setTimeout(() => { r.style.opacity = '1'; }, i * 80);
-  });
-
-  // Step 2: after showing prev order, animate to final order
-  setTimeout(() => {
-    // Get pre-animation positions
-    const prePositions = prevRows.map(r => r.getBoundingClientRect());
-
-    // Re-render in correct final order
-    board.innerHTML = '';
-    render();
-
-    // FLIP animation
-    const finalRows = Array.from(board.querySelectorAll('.row'));
-    finalRows.forEach((row, i) => {
-      const agName = sorted[i].name;
-      const prevIdx = prevSorted.findIndex(a => a.name === agName);
-      if(prevIdx === -1) return;
-      const prePos = prePositions[prevIdx];
-      const finalPos = row.getBoundingClientRect();
-      const dy = prePos.top - finalPos.top;
-      if(Math.abs(dy) > 2){
-        row.style.transform = `translateY(${dy}px)`;
-        row.style.transition = 'none';
-        row.classList.add('rank-animating');
-        setTimeout(() => {
-          row.style.transition = 'transform 0.7s cubic-bezier(0.34,1.56,0.64,1)';
-          row.style.transform = 'translateY(0)';
-          setTimeout(() => {
-            row.classList.remove('rank-animating');
-            row.classList.add('rank-pop');
-            setTimeout(() => row.classList.remove('rank-pop'), 600);
-          }, 750);
-        }, i * 40 + 100);
-      }
-    });
-  }, prevRows.length * 80 + 600);
-}
-
-function buildRowHTML(ag, dispRank){
-  const MEDALS=['🥇','🥈','🥉'];
-  const mtdCls = ag.mtd_fyc < 0 ? ' neg' : '';
-  const ytdCls = ag.ytd_fyc < 0 ? ' neg' : '';
-  return `
-    <div class="rn${dispRank<=3?' hi':''}">${dispRank<=3?'':dispRank}</div>
-    <div class="med">${dispRank<=3?MEDALS[dispRank-1]:''}</div>
-    <div class="agent-cell" style="display:flex;align-items:center;gap:8px;">
-      ${PHOTOS[ag.name]
-        ? \`<img class="agent-photo" src="data:image/png;base64,\${PHOTOS[ag.name]}" alt="\${ag.name}">\`
-        : \`<div class="agent-photo-placeholder">\${ag.name.split(' ').slice(0,2).map(w=>w[0]).join('')}</div>\`
-      }
-      <div style="min-width:0;overflow:hidden">
-        <div class="aname" style="white-space:nowrap;font-size:11px;overflow:hidden;text-overflow:ellipsis;">\${ag.name.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' ')}</div>
-        <div class="spark">\${sparkHTML(ag)}</div>
-      </div>
-    </div>
-    <div class="mtd-cell">
-      <div class="fyc-val\${mtdCls}">\${fmts(ag.mtd_fyc)}</div>
-      <div class="fyc-sub">\${ag.mtd_cc>0?ag.mtd_cc+'cc':''}</div>
-    </div>
-    <div class="ytd-cell">
-      <div class="fyc-val\${ytdCls}">\${fmts(ag.ytd_fyc)}</div>
-    </div>
-    <div class="cc-pill">\${fmtCC(ag.ytd_cc)}</div>
-    <div class="rank-moves">\${rankMovesHTML(ag, dispRank)}</div>
-  `;
-}
-
-// Run animation on first load — after a short delay so HOF scroll finishes
-window.addEventListener('load', function(){
-  const hof = document.querySelector('.hof-scroll');
-  if(hof) hof.scrollLeft = hof.scrollWidth;
-  // Only animate if there are rank changes
-  const hasChanges = DATA.some(a => a.prev_rank !== (DATA.indexOf(a)+1));
-  if(hasChanges) setTimeout(animateRankings, 800);
-});
-
-// Scroll HOF to end (latest month) on load
-window.addEventListener('load', function(){
-  const hof = document.querySelector('.hof-scroll');
-  if(hof) hof.scrollLeft = hof.scrollWidth;
-});
 
 </script>
 
-<!-- AGENT MODAL -->
-<div class="modal-overlay" id="agentModal" onclick="closeModalOutside(event)">
-  <div class="modal-box" id="modalBox">
-    <div class="modal-hero">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <div class="modal-photo-wrap" id="modalPhotoWrap"></div>
-      <div class="modal-rank" id="modalRank">Rank #1</div>
-      <div class="modal-name" id="modalName">Agent Name</div>
-      <div class="modal-stats">
-        <div class="ms"><div class="ms-val" id="modalYTD">—</div><div class="ms-lbl">YTD FYC</div></div>
-        <div class="ms"><div class="ms-val" id="modalMTD">—</div><div class="ms-lbl">Jun FYC</div></div>
-        <div class="ms"><div class="ms-val" id="modalCC">—</div><div class="ms-lbl">YTD Cases</div></div>
-      </div>
-    </div>
-    <div class="modal-body">
-      <div class="modal-section-title">vs team average</div>
-      <div class="modal-vs">
-        <div class="mv-card">
-          <div class="mv-lbl">YTD FYC</div>
-          <div class="mv-val" id="vsYTD">—</div>
-          <div class="mv-avg" id="vsYTDavg">Team avg —</div>
-          <div class="mv-bar-wrap"><div class="mv-bar" id="vsYTDbar" style="width:0%"></div></div>
-        </div>
-        <div class="mv-card">
-          <div class="mv-lbl">Case Count</div>
-          <div class="mv-val" id="vsCC">—</div>
-          <div class="mv-avg" id="vsCCavg">Team avg —</div>
-          <div class="mv-bar-wrap"><div class="mv-bar" id="vsCCbar" style="width:0%"></div></div>
-        </div>
-      </div>
-
-      <div class="modal-section-title">monthly breakdown</div>
-      <div class="modal-month-grid" id="modalMonths"></div>
-
-      <div class="modal-section-title">FYC trend</div>
-      <div class="chart-wrap">
-        <canvas id="agentChart" role="img" aria-label="Monthly FYC trend chart"></canvas>
-      </div>
-
-      <div class="modal-grit">
-        <div class="modal-grit-text">G · R · I · T &nbsp;|&nbsp; Where People Matter</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
-// ── RANK ANIMATION + SOUND ON LOAD ──────────────────────────────────
 (function(){
-  function playTick(freq, vol) {
+  function chime(freq, delay) {
     try {
       var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      gain.gain.setValueAtTime(0, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.01);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.15);
+      setTimeout(function(){
+        var osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = 'sine'; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.07, ctx.currentTime + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+        osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.2);
+      }, delay);
     } catch(e) {}
   }
 
-  function playRiseSound() {
-    // Rising chime — plays as a row moves up
-    playTick(520, 0.08);
-    setTimeout(function(){ playTick(660, 0.06); }, 80);
-  }
-
-  function playLandSound() {
-    // Soft thud when row lands
-    playTick(300, 0.05);
-  }
-
-  function animateRankings() {
+  function runRankAnimation() {
     var board = document.getElementById('board');
     if (!board) return;
     var rows = Array.from(board.querySelectorAll('.row'));
     if (!rows.length) return;
-
-    // Get current (final) positions before we do anything
-    var finalTops = rows.map(function(r){ return r.getBoundingClientRect().top; });
-
-    // Build prev-rank order mapping
     var sorted = DATA.slice().sort(function(a,b){ return b.ytd_fyc - a.ytd_fyc; });
-    var prevOrder = DATA.slice().sort(function(a,b){ return a.prev_rank - b.prev_rank; });
-
-    // Map: agent name → current row element
-    var rowByName = {};
-    rows.forEach(function(r, i){ rowByName[sorted[i].name] = r; });
-
-    // For each row, calculate where it was (prev rank order) vs where it is now
-    // Simulate prev positions by spacing rows evenly from prev rank
-    var rowH = rows[0] ? rows[0].offsetHeight + 5 : 70;
-    var boardTop = board.getBoundingClientRect().top;
-
-    // Step 1: flash rows at their previous positions
-    rows.forEach(function(r, currIdx){
-      var agName = sorted[currIdx].name;
-      var prevRank = sorted[currIdx].prev_rank || currIdx + 1;
-      var prevIdx = prevRank - 1;
-      var dy = (prevIdx - currIdx) * rowH;
-
-      if (Math.abs(dy) > 5) {
-        r.style.transition = 'none';
-        r.style.transform = 'translateY(' + dy + 'px)';
-        r.style.opacity = '0.7';
-      }
+    var ROW_H = (rows[0] ? rows[0].offsetHeight : 64) + 5;
+    rows.forEach(function(row, currIdx) {
+      var ag = sorted[currIdx];
+      if (!ag || !ag.prev_rank) return;
+      var prevIdx = ag.prev_rank - 1;
+      var dy = (prevIdx - currIdx) * ROW_H;
+      if (Math.abs(dy) < 5) return;
+      var moved = prevIdx - currIdx;
+      var animId = 'rkAnim' + currIdx;
+      var style = document.createElement('style');
+      style.innerHTML = '@keyframes ' + animId + '{0%{transform:translateY(' + dy + 'px)}100%{transform:translateY(0)}}';
+      document.head.appendChild(style);
+      var delay = 300 + currIdx * 45;
+      setTimeout(function(){
+        row.style.animation = animId + ' 0.7s cubic-bezier(0.34,1.4,0.64,1) both';
+        if (moved > 0) { chime(480 + moved * 40, 0); chime(620 + moved * 30, 90); }
+        setTimeout(function(){
+          row.style.animation = '';
+          row.style.boxShadow = '0 0 0 2px rgba(201,168,76,0.6)';
+          row.style.transition = 'box-shadow 0.3s';
+          chime(300, 0);
+          setTimeout(function(){ row.style.boxShadow = ''; row.style.transition = ''; }, 350);
+        }, 710);
+      }, delay);
     });
-
-    // Step 2: after brief pause, fly to final positions
-    setTimeout(function(){
-      rows.forEach(function(r, currIdx){
-        var agName = sorted[currIdx].name;
-        var prevRank = sorted[currIdx].prev_rank || currIdx + 1;
-        var dy = (prevRank - 1 - currIdx) * rowH;
-
-        if (Math.abs(dy) > 5) {
-          var movedUp = dy > 0;
-          r.classList.add('row-flying');
-          // Stagger by position
-          var delay = currIdx * 35;
-          setTimeout(function(){
-            r.style.transition = 'transform 0.65s cubic-bezier(0.34,1.4,0.64,1), opacity 0.4s ease';
-            r.style.transform = 'translateY(0)';
-            r.style.opacity = '1';
-            if (movedUp) playRiseSound();
-
-            // Landing sound & pop
-            setTimeout(function(){
-              r.classList.remove('row-flying');
-              r.classList.add('row-landed');
-              playLandSound();
-              setTimeout(function(){ r.classList.remove('row-landed'); }, 500);
-            }, 680);
-          }, delay);
-        } else {
-          // No movement — just fade in cleanly
-          r.style.transition = 'opacity 0.3s ease';
-          r.style.opacity = '1';
-          r.style.transform = 'translateY(0)';
-        }
-      });
-    }, 400);
   }
 
-  // HOF scroll to latest + trigger rank animation
   window.addEventListener('load', function(){
     var hof = document.querySelector('.hof-scroll');
     if (hof) hof.scrollLeft = hof.scrollWidth;
-
-    var hasChanges = DATA.some(function(a, i){
-      var sorted = DATA.slice().sort(function(x,y){ return y.ytd_fyc - x.ytd_fyc; });
-      var curr = sorted.indexOf(a) + 1;
-      return a.prev_rank && a.prev_rank !== curr;
-    });
-
-    if (hasChanges) {
-      setTimeout(animateRankings, 900);
-    }
+    setTimeout(runRankAnimation, 800);
   });
 })();
 </script>
