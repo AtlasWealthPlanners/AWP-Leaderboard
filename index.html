@@ -1196,7 +1196,7 @@ render();
 
 
 // ── Achievement Celebration Popup ───────────────────────────
-(function(){
+document.addEventListener("DOMContentLoaded", function(){
   // Easy-edit list — add more achievers here later
   // Set active: true for the one currently being celebrated
   const ACHIEVEMENTS = [
@@ -1251,7 +1251,7 @@ render();
 
   // Show after a short delay so leaderboard renders first
   setTimeout(openModal, 350);
-})();
+});
 // ────────────────────────────────────────────────────────────
 </script>
 
