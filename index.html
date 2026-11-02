@@ -1165,16 +1165,16 @@ render();
     function openModal(){
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
-      video.src = VIDEO_SRC;
-      video.load();
-      video.play().catch(function(){});
+      video.play().catch(function(){
+        closeBtn.classList.add('visible');
+      });
       overlay.setAttribute('tabindex','-1');
       overlay.focus();
     }
     function closeModal(){
       overlay.classList.remove('open');
       document.body.style.overflow = '';
-      video.pause(); video.src = '';
+      video.pause();
       sessionStorage.setItem('achv-nov2026','1');
     }
     video.addEventListener('ended', function(){ closeBtn.classList.add('visible'); closeBtn.focus(); });
@@ -1193,7 +1193,7 @@ render();
 <!-- Achievement Celebration Popup -->
 <div id="achv-overlay" role="dialog" aria-modal="true" aria-label="AWP Celebration">
   <div id="achv-vid-wrap">
-    <video id="achv-video" playsinline muted preload="auto" aria-label="AWP Celebration video"></video>
+    <video id="achv-video" playsinline muted preload="auto" aria-label="AWP Celebration video" src="https://atlaswealthplanners.github.io/AWP-Leaderboard/celebration.mp4"></video>
     <button id="achv-close" aria-label="Close celebration">&#x2715;</button>
   </div>
 </div>
