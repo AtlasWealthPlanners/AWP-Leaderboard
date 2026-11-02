@@ -1167,7 +1167,7 @@ render();
       document.body.style.overflow = 'hidden';
       video.src = VIDEO_SRC;
       video.load();
-      video.play().catch(function(){ closeBtn.classList.add('visible'); });
+      video.play().catch(function(){});
       overlay.setAttribute('tabindex','-1');
       overlay.focus();
     }
