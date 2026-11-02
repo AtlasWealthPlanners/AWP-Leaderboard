@@ -1154,7 +1154,7 @@ render();
 
 // ── Achievement Celebration Popup ───────────────────────────
 (function(){
-  var VIDEO_SRC = 'celebration.mp4';
+  var VIDEO_SRC = 'https://atlaswealthplanners.github.io/AWP-Leaderboard/celebration.mp4';
   if(sessionStorage.getItem('achv-nov2026')) return;
   document.addEventListener('DOMContentLoaded', function(){
     var overlay  = document.getElementById('achv-overlay');
@@ -1178,7 +1178,7 @@ render();
       sessionStorage.setItem('achv-nov2026','1');
     }
     video.addEventListener('ended', function(){ closeBtn.classList.add('visible'); closeBtn.focus(); });
-    video.addEventListener('error',  function(){ closeBtn.classList.add('visible'); });
+    // error: keep overlay open so user can still Escape out
     closeBtn.addEventListener('click', closeModal);
     overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
     document.addEventListener('keydown', function(e){
