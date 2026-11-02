@@ -1155,7 +1155,7 @@ render();
 // ── Achievement Celebration Popup ───────────────────────────
 (function(){
   var VIDEO_SRC = 'celebration.mp4';
-  if(sessionStorage.getItem('achv-seen')) return;
+  if(sessionStorage.getItem('achv-nov2026')) return;
   document.addEventListener('DOMContentLoaded', function(){
     var overlay  = document.getElementById('achv-overlay');
     var video    = document.getElementById('achv-video');
@@ -1175,7 +1175,7 @@ render();
       overlay.classList.remove('open');
       document.body.style.overflow = '';
       video.pause(); video.src = '';
-      sessionStorage.setItem('achv-seen','1');
+      sessionStorage.setItem('achv-nov2026','1');
     }
     video.addEventListener('ended', function(){ closeBtn.classList.add('visible'); closeBtn.focus(); });
     video.addEventListener('error',  function(){ closeBtn.classList.add('visible'); });
